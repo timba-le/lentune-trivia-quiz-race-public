@@ -144,7 +144,7 @@
       text.textContent = 'Submissions are OPEN';
       detail.textContent = `Closes at ${hh(w.win.close)} NZ time today. Get your screenshot in.`;
       btn.disabled = false;
-      btn.textContent = 'Log my score \uD83C\uDFC1';
+      btn.textContent = 'Log my score 🏁';
     } else {
       pill.classList.add('status-pill--closed');
       text.textContent = 'Submissions are CLOSED';
@@ -157,7 +157,7 @@
               ? `Very keen. The form opens at ${hh(w.win.open)} NZ time.`
               : `Today's window shut at ${hh(w.win.close)} NZ time. Back tomorrow at ${hh(8)}.`;
       btn.disabled = true;
-      btn.textContent = 'Form closed \uD83D\uDD12';
+      btn.textContent = 'Form closed 🔒';
     }
 
     renderHolidayNotes();
@@ -296,7 +296,7 @@
       podium.innerHTML = '';
       body.innerHTML = `<tr><td colspan="10">
         <div class="empty-state">
-          <span class="emoji">\uD83C\uDFC1</span>
+          <span class="emoji">🏁</span>
           <strong>No scores logged for this week yet.</strong><br>
           Be the first on the board — the view from the front is lovely.
         </div></td></tr>`;
@@ -304,8 +304,8 @@
       return;
     }
 
-    const medals = ['\uD83E\uDD47', '\uD83E\uDD48', '\uD83E\uDD49'];
-    const prizes = ['6-pack \uD83C\uDF7B', 'Sweet basket \uD83E\uDDFA', 'Bragging rights'];
+    const medals = ['🥇', '🥈', '🥉'];
+    const prizes = ['6-pack 🍻', 'Sweet basket 🧺', 'Bragging rights'];
     podium.innerHTML = rows.slice(0, 3).map((r, i) => `
       <div class="podium-card podium-card--${i + 1}">
         <div class="podium-medal">${medals[i]}</div>
@@ -390,7 +390,7 @@
 
     if (!active.length) {
       grid.innerHTML = `<div class="empty-state">
-        <span class="emoji">\uD83C\uDFC6</span>
+        <span class="emoji">🏆</span>
         <strong>No team scores for ${prettyMonth(state.selectedMonth)} yet.</strong><br>
         The trophy shelf is looking suspiciously empty.
       </div>`;
@@ -408,7 +408,7 @@
         ? `<div class="team-members">${escapeHtml(r.members.join(', '))}</div>`
         : '';
       return `<div class="team-row${lead ? ' team-row--lead' : ''}">
-        <div class="team-rank">${lead ? '\uD83C\uDFC6' : i + 1}</div>
+        <div class="team-rank">${lead ? '🏆' : i + 1}</div>
         <div>
           <div class="team-name">${escapeHtml(r.team)}</div>
           ${members}
@@ -848,7 +848,7 @@
         msg.textContent = data.error || 'That did not go through. Give it another crack.';
         msg.className = 'form-message is-error';
         btn.disabled = false;
-        btn.textContent = 'Log my score \uD83C\uDFC1';
+        btn.textContent = 'Log my score 🏁';
         if (res.status === 423) await loadData();
         return;
       }
@@ -856,7 +856,7 @@
       const logged = quizOn && Array.isArray(data.submissions) && data.submissions.length > 1
         ? data.submissions.map((s) => s.name).join(', ')
         : name;
-      msg.textContent = `Logged — ${score}/${CFG.MAX_SCORE} for ${logged}. Nice work. \uD83C\uDFC1`;
+      msg.textContent = `Logged — ${score}/${CFG.MAX_SCORE} for ${logged}. Nice work. 🏁`;
       msg.className = 'form-message is-success';
 
       $('#scoreForm').reset();
@@ -868,13 +868,13 @@
       $('#dropBody').style.display = '';
 
       await loadData();
-      btn.textContent = 'Log my score \uD83C\uDFC1';
+      btn.textContent = 'Log my score 🏁';
       btn.disabled = !(state.window && state.window.open);
     } catch (err) {
       msg.textContent = 'Network hiccup — check your connection and try again.';
       msg.className = 'form-message is-error';
       btn.disabled = false;
-      btn.textContent = 'Log my score \uD83C\uDFC1';
+      btn.textContent = 'Log my score 🏁';
     }
   }
 
