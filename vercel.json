@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    }
+  ],
+  "rewrites": [
+    { "source": "/player-tiers.js", "destination": "/favicon.svg" },
+    { "source": "/roster.js", "destination": "/favicon.svg" },
+    { "source": "/kv.js", "destination": "/favicon.svg" },
+    { "source": "/local-server.mjs", "destination": "/favicon.svg" }
+  ]
+}

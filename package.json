@@ -1,0 +1,11 @@
+{
+  "name": "lentune-trivia-quiz-race",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lentune Friday Social trivia league — score submission and leaderboard.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node tests/scoring-tests.mjs && node tests/teams-tests.mjs && node tests/holiday-tests.mjs && node tests/run-tests.mjs"
+  }
+}
