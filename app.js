@@ -294,7 +294,7 @@
 
     if (!rows.length) {
       podium.innerHTML = '';
-      body.innerHTML = `<tr><td colspan="10">
+      body.innerHTML = `<tr><td colspan="9">
         <div class="empty-state">
           <span class="emoji">🏁</span>
           <strong>No scores logged for this week yet.</strong><br>
@@ -341,7 +341,6 @@
       return `<tr>
         <td><span class="rank-badge${rankClass}">${i + 1}</span></td>
         <td class="racer-name">${escapeHtml(r.name)}</td>
-        <td><span class="team-chip">${escapeHtml(teamLabelFor(r))}</span></td>
         ${dayCells}
         <td class="num day-dropped" title="${escapeHtml(droppedTitle)}">${r.droppedScore == null ? '–' : show(r.droppedScore)}</td>
         <td class="num total">${show(r.total)}</td>
