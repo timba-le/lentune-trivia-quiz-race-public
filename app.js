@@ -305,7 +305,7 @@
     }
 
     const medals = ['🥇', '🥈', '🥉'];
-    const prizes = ['6-pack 🍻', 'Sweet basket 🧺', 'Bragging rights'];
+    const prizes = ['Beer or lollies 🍺', 'Chocolate bar 🍫', 'Bragging rights'];
     podium.innerHTML = rows.slice(0, 3).map((r, i) => `
       <div class="podium-card podium-card--${i + 1}">
         <div class="podium-medal">${medals[i]}</div>
@@ -505,12 +505,6 @@
       .sort((a, b) => a.localeCompare(b));
     const current = sel.value;
     sel.innerHTML = '<option value="">Choose your name…</option>';
-    for (const p of players) {
-      const opt = document.createElement('option');
-      opt.value = p;
-      opt.textContent = p;
-      sel.appendChild(opt);
-    }
     if (current) sel.value = current;
     sel.dataset.filled = '1';
   }
