@@ -18,6 +18,11 @@ window.QUIZ_CONFIG = {
   // Quiz-team league starts at 00:00 NZ on this date.
   QUIZ_TEAMS_START: '2026-09-01',
 
+  // Leaderboard / form grouping — these count as the canonical player name.
+  NAME_ALIASES: {
+    timba: 'Timba Le'
+  },
+
   PLAYERS: [
     'Timba Le',
     'Kathy Kok',
