@@ -505,6 +505,12 @@
       .sort((a, b) => a.localeCompare(b));
     const current = sel.value;
     sel.innerHTML = '<option value="">Choose your name…</option>';
+    for (const p of players) {
+      const opt = document.createElement('option');
+      opt.value = p;
+      opt.textContent = p;
+      sel.appendChild(opt);
+    }
     if (current) sel.value = current;
     sel.dataset.filled = '1';
   }
