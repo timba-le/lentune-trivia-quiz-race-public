@@ -80,7 +80,12 @@
 
   const TEAM_SIZES = [5, 5, 5, 4];
 
-  const nameKey = (s) => String(s).trim().replace(/\s+/g, ' ').toLowerCase();
+  const NAME_ALIASES = CFG.NAME_ALIASES || { timba: 'Timba Le' };
+  const nameKey = (s) => {
+    const raw = String(s || '').trim().replace(/\s+/g, ' ');
+    const mapped = NAME_ALIASES[raw.toLowerCase()] || raw;
+    return mapped.replace(/\s+/g, ' ').toLowerCase();
+  };
 
   function quizTeamsActive(dateKey) {
     return String(dateKey || '') >= QUIZ_TEAMS_START;
@@ -149,12 +154,6 @@
     return a;
   }
 
-  /**
-   * Deterministic monthly draw.
-   * If options.tiers is passed (server-only), deal by skill band: one tier-1
-   * per team, then round-robin tier 2, then fill with tier 3 to 5/5/5/4.
-   * Without tiers, one ringer per team and the rest at random (tests / fallback).
-   */
   function generateTeams(monthKey, options) {
     const opts = options || {};
     const players = (opts.players || PLAYERS).slice();
@@ -239,10 +238,6 @@
     return { monthKey, generatedAt: null, teams };
   }
 
-  /**
-   * From the 2nd of the month, unnamed teams get a unique funny name.
-   * Deterministic so two concurrent fills agree.
-   */
   function applyFallbackNames(roster, dateKey, funnyNames) {
     if (!roster || !Array.isArray(roster.teams)) return { roster, changed: false };
     const day = Number(String(dateKey).slice(8, 10));
@@ -296,7 +291,6 @@
       return { ok: false, error: 'That team already has a name.', status: 409 };
     }
 
-    // Anyone may lock a name on day 1. Membership is not required.
     const v = validateTeamName(rawName);
     if (!v.ok) return v;
 
@@ -314,9 +308,6 @@
     return { ok: true, roster: { ...roster, teams }, name: v.name };
   }
 
-  /**
-   * One submitter + 1 or 2 teammates from the same monthly team, none already scored.
-   */
   function validatePlayGroup(roster, submitterName, teammateNames, alreadyScoredKeys, players) {
     const submitter = canonicalPlayer(submitterName, players);
     if (!submitter) return { ok: false, error: 'Please pick your name from the list.' };
