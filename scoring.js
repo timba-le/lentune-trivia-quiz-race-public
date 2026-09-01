@@ -15,7 +15,21 @@
 
   const DEFAULT_BEST_N_DAYS = 4;
 
-  const nameKey = (s) => String(s).trim().replace(/\s+/g, ' ').toLowerCase();
+  // Short names that should count as the same racer as a canonical player.
+  const DEFAULT_NAME_ALIASES = { timba: 'Timba Le' };
+
+  function nameAliases() {
+    const cfg = (typeof globalThis !== 'undefined' && globalThis.QUIZ_CONFIG) || {};
+    return cfg.NAME_ALIASES || DEFAULT_NAME_ALIASES;
+  }
+
+  function resolveName(s) {
+    const raw = String(s || '').trim().replace(/\s+/g, ' ');
+    const hit = nameAliases()[raw.toLowerCase()];
+    return hit || raw;
+  }
+
+  const nameKey = (s) => resolveName(s).toLowerCase();
 
   const round1 = (n) => Math.round(n * 10) / 10;
 
@@ -53,14 +67,14 @@
       const key = nameKey(s.name);
       if (!byPlayer.has(key)) {
         byPlayer.set(key, {
-          name: s.name,
+          name: resolveName(s.name),
           team: s.team,
           teamId: s.teamId || null,
           days: Array(5).fill(null)
         });
       }
       const p = byPlayer.get(key);
-      p.name = s.name;
+      p.name = resolveName(s.name);
       p.team = s.team; // latest submission wins for display
       if (s.teamId) p.teamId = s.teamId;
       p.days[di] = {
@@ -199,5 +213,5 @@
     return rows;
   }
 
-  return { nameKey, round1, weekKeyFor, dayIndex, monthKeyFor, weeklyRows, teamRows };
+  return { nameKey, resolveName, round1, weekKeyFor, dayIndex, monthKeyFor, weeklyRows, teamRows };
 });
